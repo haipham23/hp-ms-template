@@ -2,10 +2,10 @@ const redisClient = require('../services/redis.service');
 
 const { REDIS_CACHE_KEY } = process.env;
 
-const filterChapterByNo = (sDocs, no) => {
+const filterChapterByNo = (sDocs, chapterNo) => {
   const docs = JSON.parse(sDocs);
 
-  return docs.chapters[no];
+  return docs.chapters[chapterNo];
 };
 
 const getChapterByNo = (no) => {
@@ -13,7 +13,7 @@ const getChapterByNo = (no) => {
 
   return redisClient
     .getAsync(REDIS_CACHE_KEY)
-    .then((sDocs) => filterChapterByNo(sDocs, no));
+    .then((sDocs) => filterChapterByNo(sDocs, chapterNo));
 };
 
 module.exports = getChapterByNo;
